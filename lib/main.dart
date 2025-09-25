@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:task1/pages/page1.dart';
+import 'package:task1/pages/home.dart';
 Future<void> main() async {
-
-
-
   runApp(
     MaterialApp(
       theme: ThemeData(
