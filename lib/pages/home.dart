@@ -14,9 +14,9 @@ class _UserListPageState extends State<UserListPage> {
   @override
   void initState() {
     super.initState();
-    futureUsers = fetchUsers(1); // Fetch the first page
+    futureUsers = fetchUsers(1);
   }
-
+///builds a user list interface with responsive UI, displaying a shimmer loading effect while fetching data. It shows user details in a list format with avatar, name, and email. On tapping a user, it triggers a popup showing detailed information. The layout adapts to screen size using MediaQuery.
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -46,7 +46,7 @@ class _UserListPageState extends State<UserListPage> {
                     return ListTile(
                       leading: Image.network(
                         user.avatar,
-                        width: screenWidth * 0.15, // Adjust image size
+                        width: screenWidth * 0.15,
                         height: screenHeight * 0.15,
                       ),
                       title: Text('${user.firstName} ${user.lastName}'),
@@ -54,12 +54,7 @@ class _UserListPageState extends State<UserListPage> {
                       onTap: () {
                         print("shooooooooooooooka${user.id}");
                         _showUserDetailsPopup(context,user,screenWidth,screenHeight);
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => UserDetailsPage(userId: user.id),
-                        //   ),
-                        // );
+
                       },
                     );
                   },
@@ -71,17 +66,17 @@ class _UserListPageState extends State<UserListPage> {
       ),
     );
   }
-
+///creates a shimmer loading effect for a list interface. It builds 6 list items with gray shimmer animation using the Shimmer package. Each item contains a leading square container (15% of screen width) and two horizontal white bars as title and subtitle placeholders. The shimmer effect transitions between light and dark gray colors to simulate loading content.
   Widget _buildShimmerLoading(double screenWidth,double hight) {
     return ListView.builder(
-      itemCount: 6, // Number of shimmer items
+      itemCount: 6,
       itemBuilder: (context, index) {
         return Shimmer.fromColors(
           baseColor: Colors.grey[300]!,
           highlightColor: Colors.grey[100]!,
           child: ListTile(
             leading: Container(
-              width: screenWidth * 0.15, // Adjust placeholder size
+              width: screenWidth * 0.15,
               height: screenWidth * 0.15,
               color: Colors.white,
             ),
@@ -100,7 +95,12 @@ class _UserListPageState extends State<UserListPage> {
       },
     );
   }
-
+///displays a popup dialog showing user details. It takes context, user data, and screen dimensions as parameters. The dialog includes:
+/// User avatar image
+/// Full name (first + last name)
+/// Email address
+/// Close button to dismiss the dialog
+/// All text sizes are calculated dynamically based on screen width for responsive design.
   void _showUserDetailsPopup(BuildContext context, User user,double width,double hight) {
     showDialog(
       context: context,

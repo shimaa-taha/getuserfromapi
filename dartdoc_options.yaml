@@ -1,0 +1,4 @@
+dartdoc:
+  exclude: [lib/src/private]
+  # Or use nodoc field (not the CLI option)
+  nodoc: [lib/src/private/**]

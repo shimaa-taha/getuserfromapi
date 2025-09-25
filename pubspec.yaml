@@ -49,6 +49,7 @@ dev_dependencies:
   http: ^0.13.4
   shimmer: ^2.0.0
   url_launcher: ^6.3.1
+  dartdoc: 8.0.7
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
