@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Import services.dart
+
 import 'package:task1/pages/home.dart';
 Future<void> main() async {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     MaterialApp(
       theme: ThemeData(
