@@ -9,12 +9,12 @@ class UserListPage extends StatefulWidget {
 }
 
 class _UserListPageState extends State<UserListPage> {
-  late Future<List<User>> futureUsers;
+  late Future<List<Results>> futureUsers;
 
   @override
   void initState() {
     super.initState();
-    futureUsers = fetchUsers(1);
+    futureUsers = fetchUsers();
   }
 ///builds a user list interface with responsive UI, displaying a shimmer loading effect while fetching data. It shows user details in a list format with avatar, name, and email. On tapping a user, it triggers a popup showing detailed information. The layout adapts to screen size using MediaQuery.
   @override
@@ -27,7 +27,7 @@ class _UserListPageState extends State<UserListPage> {
         child: Container(
           width: screenWidth/1.1,
           padding: EdgeInsets.symmetric(horizontal: screenWidth*0.001),
-          child: FutureBuilder<List<User>>(
+          child: FutureBuilder<List<Results>>(
             future: futureUsers,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -45,12 +45,12 @@ class _UserListPageState extends State<UserListPage> {
 
                     return ListTile(
                       leading: Image.network(
-                        user.avatar,
+                        user.image!!,
                         width: screenWidth * 0.15,
                         height: screenHeight * 0.15,
                       ),
-                      title: Text('${user.firstName} ${user.lastName}'),
-                      subtitle: Text(user.email),
+                      title: Text('${user.name}'),
+                      subtitle: Text(user.status!),
                       onTap: () {
                         print("shooooooooooooooka${user.id}");
                         _showUserDetailsPopup(context,user,screenWidth,screenHeight);
@@ -101,7 +101,7 @@ class _UserListPageState extends State<UserListPage> {
 /// Email address
 /// Close button to dismiss the dialog
 /// All text sizes are calculated dynamically based on screen width for responsive design.
-  void _showUserDetailsPopup(BuildContext context, User user,double width,double hight) {
+  void _showUserDetailsPopup(BuildContext context, Results user,double width,double hight) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -112,29 +112,38 @@ class _UserListPageState extends State<UserListPage> {
               children: <Widget>[
                 Center(
                   child: CircleAvatar(
-                    backgroundImage: NetworkImage(user.avatar),
+                    backgroundImage: NetworkImage(user.image!),
                     radius: width*0.09,
                   ),
                 ),
                 SizedBox(height: hight*0.007),
                 Text(
-                  '${user.firstName} ${user.lastName}',
+                  "name: ${user.name!.length>30?user.name!.substring(0,25)+"...":user.name!}",
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: width*0.04,
-                    fontWeight: FontWeight.bold,
                     fontFamily: "Poppins",
                   ),
                 ),
                 SizedBox(height: hight*0.004),
 
                 Text(
-                  user.email,
+                  "status: ${ user.status!}" ,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize:  width*0.04,color:Colors.black,fontFamily: "Poppins",),
                 ),
                 SizedBox(height: hight*0.004),
-
+                Text(
+                  "gender: ${user.gender!}"  ,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize:  width*0.04,color:Colors.black,fontFamily: "Poppins",),
+                ),
+                SizedBox(height: hight*0.004),
+                Text(
+               "species: ${  user.species!}" ,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize:  width*0.04,color:Colors.black,fontFamily: "Poppins",),
+                ),
               ],
             ),
           ),
